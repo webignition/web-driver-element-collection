@@ -4,7 +4,7 @@ namespace webignition\WebDriverElementCollection;
 
 use Facebook\WebDriver\WebDriverElement;
 
-class WebDriverElementCollection implements \Countable, \Iterator
+class WebDriverElementCollection implements \Countable, \Iterator, WebDriverElementCollectionInterface
 {
     /**
      * @var WebDriverElement[]
