@@ -1,5 +1,4 @@
-<?php
-/** @noinspection PhpUnhandledExceptionInspection */
+<?php declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection\Tests;
 
