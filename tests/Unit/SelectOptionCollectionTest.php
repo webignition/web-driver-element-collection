@@ -51,4 +51,54 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
             ],
         ];
     }
+
+    /**
+     * @dataProvider isDataProvider
+     */
+    public function testIs(array $webDriverElements, bool $expectedIs)
+    {
+        $this->assertSame(SelectOptionCollection::is($webDriverElements), $expectedIs);
+    }
+
+    public function isDataProvider(): array
+    {
+        return [
+            'empty' => [
+                'webDriverElements' => [],
+                'expectedIs' => false,
+            ],
+            'singular, not WebDriverElement instance' => [
+                'webDriverElements' => [
+                    new \stdClass(),
+                ],
+                'expectedIs' => false,
+            ],
+            'singular, tag name not option' => [
+                'webDriverElements' => [
+                    ElementFactory::create('p'),
+                ],
+                'expectedIs' => false,
+            ],
+            'singular, valid' => [
+                'webDriverElements' => [
+                    ElementFactory::create('option'),
+                ],
+                'expectedIs' => true,
+            ],
+            'multiple, first valid, second not valid' => [
+                'webDriverElements' => [
+                    ElementFactory::create('option'),
+                    ElementFactory::create('p'),
+                ],
+                'expectedIs' => false,
+            ],
+            'multiple, valid' => [
+                'webDriverElements' => [
+                    ElementFactory::create('option'),
+                    ElementFactory::create('option'),
+                ],
+                'expectedIs' => true,
+            ],
+        ];
+    }
 }
