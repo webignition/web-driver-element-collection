@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace webignition\WebDriverElementCollection\Tests;
+namespace webignition\WebDriverElementCollection\Tests\Unit;
 
-use Facebook\WebDriver\WebDriverElement;
+use webignition\WebDriverElementCollection\Tests\Services\ElementFactory;
 use webignition\WebDriverElementCollection\WebDriverElementCollection;
 
 class WebDriverElementCollectionTest extends \PHPUnit\Framework\TestCase
@@ -12,21 +12,21 @@ class WebDriverElementCollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(0, new WebDriverElementCollection());
 
         $this->assertCount(1, new WebDriverElementCollection([
-            \Mockery::mock(WebDriverElement::class),
+            ElementFactory::create(''),
         ]));
 
         $this->assertCount(2, new WebDriverElementCollection([
-            \Mockery::mock(WebDriverElement::class),
-            \Mockery::mock(WebDriverElement::class),
+            ElementFactory::create(''),
+            ElementFactory::create(''),
         ]));
     }
 
     public function testIterator()
     {
         $elements = [
-            \Mockery::mock(WebDriverElement::class),
-            \Mockery::mock(WebDriverElement::class),
-            \Mockery::mock(WebDriverElement::class),
+            ElementFactory::create(''),
+            ElementFactory::create(''),
+            ElementFactory::create(''),
         ];
 
         $collection = new WebDriverElementCollection($elements);
@@ -39,9 +39,9 @@ class WebDriverElementCollectionTest extends \PHPUnit\Framework\TestCase
     public function testGet()
     {
         $elements = [
-            \Mockery::mock(WebDriverElement::class),
-            \Mockery::mock(WebDriverElement::class),
-            \Mockery::mock(WebDriverElement::class),
+            ElementFactory::create(''),
+            ElementFactory::create(''),
+            ElementFactory::create(''),
         ];
 
         $collection = new WebDriverElementCollection($elements);

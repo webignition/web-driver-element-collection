@@ -12,7 +12,53 @@ class RadioButtonCollection extends AbstractElementCollection
     const TYPE_ATTRIBUTE = 'type';
     private $name = '';
 
+    public static function is(array $webDriverElements): bool
+    {
+        if (0 === count($webDriverElements)) {
+            return false;
+        }
+
+        $collectionName = '';
+
+        foreach ($webDriverElements as $index => $element) {
+            if (!$element instanceof WebDriverElement) {
+                return false;
+            }
+
+            if (false === self::isRadioButtonElement($element)) {
+                return false;
+            }
+
+            $elementName = (string) $element->getAttribute(self::NAME_ATTRIBUTE);
+
+            if (0 === $index) {
+                $collectionName = $elementName;
+            }
+
+            if ($elementName !== $collectionName) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     protected function canBeAdded(WebDriverElement $element): bool
+    {
+        if (!self::isRadioButtonElement($element)) {
+            return false;
+        }
+
+        $name = (string) $element->getAttribute(self::NAME_ATTRIBUTE);
+
+        if (0 === count($this)) {
+            $this->name = $name;
+        }
+
+        return $name === $this->name;
+    }
+
+    private static function isRadioButtonElement(WebDriverElement $element)
     {
         if (self::REQUIRED_TAG_NAME !== $element->getTagName()) {
             return false;
@@ -28,10 +74,6 @@ class RadioButtonCollection extends AbstractElementCollection
             return false;
         }
 
-        if (0 === count($this)) {
-            $this->name = $name;
-        }
-
-        return $name === $this->name;
+        return true;
     }
 }
