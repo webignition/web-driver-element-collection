@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace webignition\WebDriverElementCollection\Tests;
+namespace webignition\WebDriverElementCollection\Tests\Unit;
 
 use Facebook\WebDriver\WebDriverElement;
 use webignition\WebDriverElementCollection\WebDriverElementCollection;
