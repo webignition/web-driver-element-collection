@@ -2,6 +2,7 @@
 
 namespace webignition\WebDriverElementCollection;
 
+use Facebook\WebDriver\WebDriverBy;
 use Facebook\WebDriver\WebDriverElement;
 
 class SelectOptionCollection extends AbstractElementCollection
@@ -23,6 +24,17 @@ class SelectOptionCollection extends AbstractElementCollection
         }
 
         return true;
+    }
+
+    public static function fromSelectElement(WebDriverElement $element): ?SelectOptionCollection
+    {
+        if ('select' !== $element->getTagName()) {
+            return null;
+        }
+
+        return new SelectOptionCollection(
+            $element->findElements(WebDriverBy::tagName('option'))
+        );
     }
 
     protected function canBeAdded(WebDriverElement $element): bool

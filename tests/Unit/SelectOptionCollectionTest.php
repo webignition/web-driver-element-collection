@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection\Tests\Unit;
 
+use Facebook\WebDriver\WebDriverElement;
 use webignition\WebDriverElementCollection\SelectOptionCollection;
 use webignition\WebDriverElementCollection\Tests\Services\ElementFactory;
 
@@ -98,6 +99,48 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
                     ElementFactory::create('option'),
                 ],
                 'expectedIs' => true,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider fromSelectElementDataProvider
+     */
+    public function testFromSelectElement(WebDriverElement $element, ?SelectOptionCollection $expectedCollection)
+    {
+        $this->assertEquals(SelectOptionCollection::fromSelectElement($element), $expectedCollection);
+    }
+
+    public function fromSelectElementDataProvider(): array
+    {
+        $emptySelectElement = ElementFactory::create('select');
+        $emptySelectElement
+            ->shouldReceive('findElements')
+            ->andReturn([]);
+
+        $optionElements = [
+            ElementFactory::create('option'),
+            ElementFactory::create('option'),
+            ElementFactory::create('option'),
+        ];
+
+        $selectElement = ElementFactory::create('select');
+        $selectElement
+            ->shouldReceive('findElements')
+            ->andReturn($optionElements);
+
+        return [
+            'not a select element' => [
+                'element' => ElementFactory::create('p'),
+                'expectedCollection' => null,
+            ],
+            'empty select element' => [
+                'element' => $emptySelectElement,
+                'expectedCollection' => new SelectOptionCollection(),
+            ],
+            'non-empty select element' => [
+                'element' => $selectElement,
+                'expectedCollection' => new SelectOptionCollection($optionElements),
             ],
         ];
     }
