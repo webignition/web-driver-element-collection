@@ -6,6 +6,7 @@ declare(strict_types=1);
 namespace webignition\WebDriverElementCollection\Tests\Services;
 
 use Facebook\WebDriver\WebDriverElement;
+use Mockery\MockInterface;
 
 class ElementFactory
 {
@@ -20,6 +21,12 @@ class ElementFactory
         );
     }
 
+    /**
+     * @param string $tagName
+     * @param array $attributes
+     *
+     * @return WebDriverElement|MockInterface
+     */
     public static function create(string $tagName, array $attributes = []): WebDriverElement
     {
         $element = \Mockery::mock(WebDriverElement::class);
