@@ -115,6 +115,12 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
                 'webDriverElements' => [],
                 'expectedIs' => false,
             ],
+            'singular, not WebDriverElement instance' => [
+                'webDriverElements' => [
+                    new \stdClass(),
+                ],
+                'expectedIs' => false,
+            ],
             'singular, tag name not input' => [
                 'webDriverElements' => [
                     $this->createElement('p'),

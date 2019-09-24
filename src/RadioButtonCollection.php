@@ -21,6 +21,10 @@ class RadioButtonCollection extends AbstractElementCollection
         $collectionName = '';
 
         foreach ($webDriverElements as $index => $element) {
+            if (!$element instanceof WebDriverElement) {
+                return false;
+            }
+
             if (false === self::isRadioButtonElement($element)) {
                 return false;
             }
