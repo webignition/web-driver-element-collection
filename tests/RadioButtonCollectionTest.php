@@ -100,6 +100,116 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
+    /**
+     * @dataProvider isDataProvider
+     */
+    public function testIs(array $webDriverElements, bool $expectedIs)
+    {
+        $this->assertSame(RadioButtonCollection::is($webDriverElements), $expectedIs);
+    }
+
+    public function isDataProvider(): array
+    {
+        return [
+            'empty' => [
+                'webDriverElements' => [],
+                'expectedIs' => false,
+            ],
+            'singular, tag name not input' => [
+                'webDriverElements' => [
+                    $this->createElement('p'),
+                ],
+                'expectedIs' => false,
+            ],
+            'singular, type not radio' => [
+                'webDriverElements' => [
+                    $this->createElement(
+                        'input',
+                        [
+                            'type' => 'text',
+                        ]
+                    ),
+                ],
+                'expectedIs' => false,
+            ],
+            'singular, empty name' => [
+                'webDriverElements' => [
+                    $this->createElement(
+                        'input',
+                        [
+                            'type' => 'radio',
+                            'name' => '',
+                        ]
+                    ),
+                ],
+                'expectedIs' => false,
+            ],
+            'singular, valid' => [
+                'webDriverElements' => [
+                    $this->createElement(
+                        'input',
+                        [
+                            'type' => 'radio',
+                            'name' => 'radio-button-name',
+                        ]
+                    ),
+                ],
+                'expectedIs' => true,
+            ],
+            'multiple, first valid, second not radio button' => [
+                'webDriverElements' => [
+                    $this->createElement(
+                        'input',
+                        [
+                            'type' => 'radio',
+                            'name' => 'radio-button-name',
+                        ]
+                    ),
+                    $this->createElement('p'),
+                ],
+                'expectedIs' => false,
+            ],
+            'multiple, first valid, second has non-matching name' => [
+                'webDriverElements' => [
+                    $this->createElement(
+                        'input',
+                        [
+                            'type' => 'radio',
+                            'name' => 'radio-button-name',
+                        ]
+                    ),
+                    $this->createElement(
+                        'input',
+                        [
+                            'type' => 'radio',
+                            'name' => 'name',
+                        ]
+                    ),
+                ],
+                'expectedIs' => false,
+            ],
+            'multiple, valid' => [
+                'webDriverElements' => [
+                    $this->createElement(
+                        'input',
+                        [
+                            'type' => 'radio',
+                            'name' => 'radio-button-name',
+                        ]
+                    ),
+                    $this->createElement(
+                        'input',
+                        [
+                            'type' => 'radio',
+                            'name' => 'radio-button-name',
+                        ]
+                    ),
+                ],
+                'expectedIs' => true,
+            ],
+        ];
+    }
+
     private function createRadioElement(string $name): WebDriverElement
     {
         $radio = \Mockery::mock(WebDriverElement::class);
@@ -118,5 +228,23 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
             ->andReturn($name);
 
         return $radio;
+    }
+
+    private function createElement(string $tagName, array $attributes = []): WebDriverElement
+    {
+        $element = \Mockery::mock(WebDriverElement::class);
+
+        $element
+            ->shouldReceive('getTagName')
+            ->andReturn($tagName);
+
+        foreach ($attributes as $name => $value) {
+            $element
+                ->shouldReceive('getAttribute')
+                ->with($name)
+                ->andReturn($value);
+        }
+
+        return $element;
     }
 }
