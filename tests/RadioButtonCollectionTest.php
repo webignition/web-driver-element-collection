@@ -1,4 +1,5 @@
 <?php
+/** @noinspection PhpIncompatibleReturnTypeInspection */
 /** @noinspection PhpDocSignatureInspection */
 declare(strict_types=1);
 
@@ -21,50 +22,16 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
-        $input = \Mockery::mock(WebDriverElement::class);
-        $input
-            ->shouldReceive('getTagName')
-            ->andReturn('input');
+        $input = $this->createElement('input', ['type' => null]);
+        $dateInput = $this->createElement('input', ['type' => 'date']);
 
-        $input
-            ->shouldReceive('getAttribute')
-            ->with('type')
-            ->andReturnNull();
-
-        $dateInput = \Mockery::mock(WebDriverElement::class);
-        $dateInput
-            ->shouldReceive('getTagName')
-            ->andReturn('input');
-
-        $dateInput
-            ->shouldReceive('getAttribute')
-            ->with('type')
-            ->andReturn('date');
-
-        $namelessRadioInput = \Mockery::mock(WebDriverElement::class);
-        $namelessRadioInput
-            ->shouldReceive('getTagName')
-            ->andReturn('input');
-
-        $namelessRadioInput
-            ->shouldReceive('getAttribute')
-            ->with('type')
-            ->andReturn('radio');
-
-        $namelessRadioInput
-            ->shouldReceive('getAttribute')
-            ->with('name')
-            ->andReturn('');
-
-        $radio1 = \Mockery::mock(WebDriverElement::class);
-        $radio1
-            ->shouldReceive('getTagName')
-            ->andReturn('input');
-
-        $radio1
-            ->shouldReceive('getAttribute')
-            ->with('type')
-            ->andReturn('radio');
+        $namelessRadioInput = $this->createElement(
+            'input',
+            [
+                'type' => 'radio',
+                'name' => '',
+            ]
+        );
 
         $radio1 = $this->createRadioElement('group-1');
         $radio2 = $this->createRadioElement('group-1');
@@ -218,22 +185,13 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
 
     private function createRadioElement(string $name): WebDriverElement
     {
-        $radio = \Mockery::mock(WebDriverElement::class);
-        $radio
-            ->shouldReceive('getTagName')
-            ->andReturn('input');
-
-        $radio
-            ->shouldReceive('getAttribute')
-            ->with('type')
-            ->andReturn('radio');
-
-        $radio
-            ->shouldReceive('getAttribute')
-            ->with('name')
-            ->andReturn($name);
-
-        return $radio;
+        return $this->createElement(
+            'input',
+            [
+                'type' => 'radio',
+                'name' => $name,
+            ]
+        );
     }
 
     private function createElement(string $tagName, array $attributes = []): WebDriverElement
