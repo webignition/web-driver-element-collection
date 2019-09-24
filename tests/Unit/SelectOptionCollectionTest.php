@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection\Tests\Unit;
 
-use Facebook\WebDriver\WebDriverElement;
 use webignition\WebDriverElementCollection\SelectOptionCollection;
+use webignition\WebDriverElementCollection\Tests\Services\ElementFactory;
 
 class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -21,20 +21,9 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
-        $input = \Mockery::mock(WebDriverElement::class);
-        $input
-            ->shouldReceive('getTagName')
-            ->andReturn('input');
-
-        $option1 = \Mockery::mock(WebDriverElement::class);
-        $option1
-            ->shouldReceive('getTagName')
-            ->andReturn('option');
-
-        $option2 = \Mockery::mock(WebDriverElement::class);
-        $option2
-            ->shouldReceive('getTagName')
-            ->andReturn('option');
+        $input = ElementFactory::create('input');
+        $option1 = ElementFactory::create('option');
+        $option2 = ElementFactory::create('option');
 
         return [
             'empty' => [

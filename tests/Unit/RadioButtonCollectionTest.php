@@ -5,8 +5,8 @@ declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection\Tests\Unit;
 
-use Facebook\WebDriver\WebDriverElement;
 use webignition\WebDriverElementCollection\RadioButtonCollection;
+use webignition\WebDriverElementCollection\Tests\Services\ElementFactory;
 
 class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
 {
@@ -22,10 +22,10 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
 
     public function createDataProvider(): array
     {
-        $input = $this->createElement('input', ['type' => null]);
-        $dateInput = $this->createElement('input', ['type' => 'date']);
+        $input = ElementFactory::create('input', ['type' => null]);
+        $dateInput = ElementFactory::create('input', ['type' => 'date']);
 
-        $namelessRadioInput = $this->createElement(
+        $namelessRadioInput = ElementFactory::create(
             'input',
             [
                 'type' => 'radio',
@@ -33,9 +33,9 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
             ]
         );
 
-        $radio1 = $this->createRadioElement('group-1');
-        $radio2 = $this->createRadioElement('group-1');
-        $radio3 = $this->createRadioElement('group-2');
+        $radio1 = ElementFactory::createRadio('group-1');
+        $radio2 = ElementFactory::createRadio('group-1');
+        $radio3 = ElementFactory::createRadio('group-2');
 
         return [
             'empty' => [
@@ -90,13 +90,13 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'singular, tag name not input' => [
                 'webDriverElements' => [
-                    $this->createElement('p'),
+                    ElementFactory::create('p'),
                 ],
                 'expectedIs' => false,
             ],
             'singular, type not radio' => [
                 'webDriverElements' => [
-                    $this->createElement(
+                    ElementFactory::create(
                         'input',
                         [
                             'type' => 'text',
@@ -107,7 +107,7 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'singular, empty name' => [
                 'webDriverElements' => [
-                    $this->createElement(
+                    ElementFactory::create(
                         'input',
                         [
                             'type' => 'radio',
@@ -119,7 +119,7 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'singular, valid' => [
                 'webDriverElements' => [
-                    $this->createElement(
+                    ElementFactory::create(
                         'input',
                         [
                             'type' => 'radio',
@@ -131,27 +131,27 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'multiple, first valid, second not radio button' => [
                 'webDriverElements' => [
-                    $this->createElement(
+                    ElementFactory::create(
                         'input',
                         [
                             'type' => 'radio',
                             'name' => 'radio-button-name',
                         ]
                     ),
-                    $this->createElement('p'),
+                    ElementFactory::create('p'),
                 ],
                 'expectedIs' => false,
             ],
             'multiple, first valid, second has non-matching name' => [
                 'webDriverElements' => [
-                    $this->createElement(
+                    ElementFactory::create(
                         'input',
                         [
                             'type' => 'radio',
                             'name' => 'radio-button-name',
                         ]
                     ),
-                    $this->createElement(
+                    ElementFactory::create(
                         'input',
                         [
                             'type' => 'radio',
@@ -163,14 +163,14 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
             ],
             'multiple, valid' => [
                 'webDriverElements' => [
-                    $this->createElement(
+                    ElementFactory::create(
                         'input',
                         [
                             'type' => 'radio',
                             'name' => 'radio-button-name',
                         ]
                     ),
-                    $this->createElement(
+                    ElementFactory::create(
                         'input',
                         [
                             'type' => 'radio',
@@ -181,34 +181,5 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
                 'expectedIs' => true,
             ],
         ];
-    }
-
-    private function createRadioElement(string $name): WebDriverElement
-    {
-        return $this->createElement(
-            'input',
-            [
-                'type' => 'radio',
-                'name' => $name,
-            ]
-        );
-    }
-
-    private function createElement(string $tagName, array $attributes = []): WebDriverElement
-    {
-        $element = \Mockery::mock(WebDriverElement::class);
-
-        $element
-            ->shouldReceive('getTagName')
-            ->andReturn($tagName);
-
-        foreach ($attributes as $name => $value) {
-            $element
-                ->shouldReceive('getAttribute')
-                ->with($name)
-                ->andReturn($value);
-        }
-
-        return $element;
     }
 }
