@@ -9,8 +9,8 @@ abstract class AbstractElementCollection implements \Countable, \Iterator, WebDr
     /**
      * @var WebDriverElement[]
      */
-    private $elements = [];
-    private $iteratorPosition = 0;
+    private array $elements = [];
+    private int $iteratorPosition = 0;
 
     public function __construct(array $elements = [])
     {

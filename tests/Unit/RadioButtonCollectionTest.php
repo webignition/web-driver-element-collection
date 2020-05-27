@@ -1,6 +1,5 @@
 <?php
-/** @noinspection PhpIncompatibleReturnTypeInspection */
-/** @noinspection PhpDocSignatureInspection */
+
 declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection\Tests\Unit;
