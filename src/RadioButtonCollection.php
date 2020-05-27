@@ -10,7 +10,7 @@ class RadioButtonCollection extends AbstractElementCollection
     const REQUIRED_TYPE = 'radio';
     const NAME_ATTRIBUTE = 'name';
     const TYPE_ATTRIBUTE = 'type';
-    private $name = '';
+    private string $name = '';
 
     public static function is(array $webDriverElements): bool
     {
