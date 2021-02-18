@@ -12,6 +12,9 @@ class RadioButtonCollection extends AbstractElementCollection
     const TYPE_ATTRIBUTE = 'type';
     private string $name = '';
 
+    /**
+     * @param WebDriverElement[] $webDriverElements
+     */
     public static function is(array $webDriverElements): bool
     {
         if (0 === count($webDriverElements)) {
@@ -58,7 +61,7 @@ class RadioButtonCollection extends AbstractElementCollection
         return $name === $this->name;
     }
 
-    private static function isRadioButtonElement(WebDriverElement $element)
+    private static function isRadioButtonElement(WebDriverElement $element): bool
     {
         if (self::REQUIRED_TAG_NAME !== $element->getTagName()) {
             return false;

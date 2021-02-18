@@ -7,7 +7,7 @@ use webignition\WebDriverElementCollection\WebDriverElementCollection;
 
 class WebDriverElementCollectionTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCountable()
+    public function testCountable(): void
     {
         $this->assertCount(0, new WebDriverElementCollection());
 
@@ -21,7 +21,7 @@ class WebDriverElementCollectionTest extends \PHPUnit\Framework\TestCase
         ]));
     }
 
-    public function testIterator()
+    public function testIterator(): void
     {
         $elements = [
             ElementFactory::create(''),
@@ -36,7 +36,7 @@ class WebDriverElementCollectionTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         $elements = [
             ElementFactory::create(''),

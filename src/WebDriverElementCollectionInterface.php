@@ -4,6 +4,9 @@ namespace webignition\WebDriverElementCollection;
 
 use Facebook\WebDriver\WebDriverElement;
 
+/**
+ * @extends \Iterator<WebDriverElement>
+ */
 interface WebDriverElementCollectionInterface extends \Countable, \Iterator
 {
     public function get(int $index): ?WebDriverElement;

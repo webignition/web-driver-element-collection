@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpDocSignatureInspection */
 declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection\Tests\Unit;
@@ -12,14 +11,19 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
+     *
+     * @param WebDriverElement[] $elements
      */
-    public function testCreate(array $elements, SelectOptionCollection $expectedCollection)
+    public function testCreate(array $elements, SelectOptionCollection $expectedCollection): void
     {
         $collection = new SelectOptionCollection($elements);
 
         $this->assertEquals($expectedCollection, $collection);
     }
 
+    /**
+     * @return array[]
+     */
     public function createDataProvider(): array
     {
         $input = ElementFactory::create('input');
@@ -55,12 +59,17 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider isDataProvider
+     *
+     * @param WebDriverElement[] $webDriverElements
      */
-    public function testIs(array $webDriverElements, bool $expectedIs)
+    public function testIs(array $webDriverElements, bool $expectedIs): void
     {
         $this->assertSame(SelectOptionCollection::is($webDriverElements), $expectedIs);
     }
 
+    /**
+     * @return array[]
+     */
     public function isDataProvider(): array
     {
         return [
@@ -106,11 +115,14 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider fromSelectElementDataProvider
      */
-    public function testFromSelectElement(WebDriverElement $element, ?SelectOptionCollection $expectedCollection)
+    public function testFromSelectElement(WebDriverElement $element, ?SelectOptionCollection $expectedCollection): void
     {
         $this->assertEquals(SelectOptionCollection::fromSelectElement($element), $expectedCollection);
     }
 
+    /**
+     * @return array[]
+     */
     public function fromSelectElementDataProvider(): array
     {
         $emptySelectElement = ElementFactory::create('select');

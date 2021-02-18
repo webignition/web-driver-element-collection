@@ -7,6 +7,9 @@ use Facebook\WebDriver\WebDriverElement;
 
 class SelectOptionCollection extends AbstractElementCollection
 {
+    /**
+     * @param WebDriverElement[] $webDriverElements
+     */
     public static function is(array $webDriverElements): bool
     {
         if (0 === count($webDriverElements)) {
