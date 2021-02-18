@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection;
 
@@ -7,6 +9,9 @@ use Facebook\WebDriver\WebDriverElement;
 
 class SelectOptionCollection extends AbstractElementCollection
 {
+    /**
+     * @param WebDriverElement[] $webDriverElements
+     */
     public static function is(array $webDriverElements): bool
     {
         if (0 === count($webDriverElements)) {

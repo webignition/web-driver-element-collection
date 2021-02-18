@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection\Tests\Unit;
 
+use Facebook\WebDriver\WebDriverElement;
 use webignition\WebDriverElementCollection\RadioButtonCollection;
 use webignition\WebDriverElementCollection\Tests\Services\ElementFactory;
 
@@ -11,14 +12,19 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @dataProvider createDataProvider
+     *
+     * @param WebDriverElement[] $elements
      */
-    public function testCreate(array $elements, RadioButtonCollection $expectedCollection)
+    public function testCreate(array $elements, RadioButtonCollection $expectedCollection): void
     {
         $collection = new RadioButtonCollection($elements);
 
         $this->assertEquals($expectedCollection, $collection);
     }
 
+    /**
+     * @return array[]
+     */
     public function createDataProvider(): array
     {
         $input = ElementFactory::create('input', ['type' => null]);
@@ -68,12 +74,17 @@ class RadioButtonCollectionTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider isDataProvider
+     *
+     * @param WebDriverElement[] $webDriverElements
      */
-    public function testIs(array $webDriverElements, bool $expectedIs)
+    public function testIs(array $webDriverElements, bool $expectedIs): void
     {
         $this->assertSame(RadioButtonCollection::is($webDriverElements), $expectedIs);
     }
 
+    /**
+     * @return array[]
+     */
     public function isDataProvider(): array
     {
         return [

@@ -22,7 +22,7 @@ class ElementFactory
 
     /**
      * @param string $tagName
-     * @param array $attributes
+     * @param array<string|null> $attributes
      *
      * @return WebDriverElement|MockInterface
      */

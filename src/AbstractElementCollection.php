@@ -1,9 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection;
 
 use Facebook\WebDriver\WebDriverElement;
 
+/**
+ * @implements \Iterator<WebDriverElement>
+ */
 abstract class AbstractElementCollection implements \Countable, \Iterator, WebDriverElementCollectionInterface
 {
     /**
@@ -12,6 +17,9 @@ abstract class AbstractElementCollection implements \Countable, \Iterator, WebDr
     private array $elements = [];
     private int $iteratorPosition = 0;
 
+    /**
+     * @param array<mixed> $elements
+     */
     public function __construct(array $elements = [])
     {
         foreach ($elements as $element) {

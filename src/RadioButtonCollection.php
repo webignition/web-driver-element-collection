@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection;
 
@@ -6,12 +8,16 @@ use Facebook\WebDriver\WebDriverElement;
 
 class RadioButtonCollection extends AbstractElementCollection
 {
-    const REQUIRED_TAG_NAME = 'input';
-    const REQUIRED_TYPE = 'radio';
-    const NAME_ATTRIBUTE = 'name';
-    const TYPE_ATTRIBUTE = 'type';
+    private const REQUIRED_TAG_NAME = 'input';
+    private const REQUIRED_TYPE = 'radio';
+    private const NAME_ATTRIBUTE = 'name';
+    private const TYPE_ATTRIBUTE = 'type';
+
     private string $name = '';
 
+    /**
+     * @param WebDriverElement[] $webDriverElements
+     */
     public static function is(array $webDriverElements): bool
     {
         if (0 === count($webDriverElements)) {
@@ -58,7 +64,7 @@ class RadioButtonCollection extends AbstractElementCollection
         return $name === $this->name;
     }
 
-    private static function isRadioButtonElement(WebDriverElement $element)
+    private static function isRadioButtonElement(WebDriverElement $element): bool
     {
         if (self::REQUIRED_TAG_NAME !== $element->getTagName()) {
             return false;
