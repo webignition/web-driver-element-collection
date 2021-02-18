@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace webignition\WebDriverElementCollection;
 
@@ -6,10 +8,11 @@ use Facebook\WebDriver\WebDriverElement;
 
 class RadioButtonCollection extends AbstractElementCollection
 {
-    const REQUIRED_TAG_NAME = 'input';
-    const REQUIRED_TYPE = 'radio';
-    const NAME_ATTRIBUTE = 'name';
-    const TYPE_ATTRIBUTE = 'type';
+    private const REQUIRED_TAG_NAME = 'input';
+    private const REQUIRED_TYPE = 'radio';
+    private const NAME_ATTRIBUTE = 'name';
+    private const TYPE_ATTRIBUTE = 'type';
+
     private string $name = '';
 
     /**
