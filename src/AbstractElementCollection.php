@@ -43,7 +43,7 @@ abstract class AbstractElementCollection implements \Countable, \Iterator, WebDr
 
     // Iterator methods
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->iteratorPosition = 0;
     }
@@ -58,7 +58,7 @@ abstract class AbstractElementCollection implements \Countable, \Iterator, WebDr
         return $this->iteratorPosition;
     }
 
-    public function next()
+    public function next(): void
     {
         ++$this->iteratorPosition;
     }
