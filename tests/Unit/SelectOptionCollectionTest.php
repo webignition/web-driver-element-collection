@@ -23,7 +23,7 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function createDataProvider(): array
     {
@@ -69,7 +69,7 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function isDataProvider(): array
     {
@@ -122,7 +122,7 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function fromSelectElementDataProvider(): array
     {
