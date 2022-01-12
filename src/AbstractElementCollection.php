@@ -29,8 +29,6 @@ abstract class AbstractElementCollection implements \Countable, \Iterator, WebDr
         }
     }
 
-    abstract protected function canBeAdded(WebDriverElement $element): bool;
-
     public function get(int $index): ?WebDriverElement
     {
         return $this->elements[$index] ?? null;
@@ -69,4 +67,6 @@ abstract class AbstractElementCollection implements \Countable, \Iterator, WebDr
     {
         return isset($this->elements[$this->iteratorPosition]);
     }
+
+    abstract protected function canBeAdded(WebDriverElement $element): bool;
 }

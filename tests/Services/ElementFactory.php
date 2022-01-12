@@ -21,10 +21,9 @@ class ElementFactory
     }
 
     /**
-     * @param string $tagName
-     * @param array<string|null> $attributes
+     * @param array<null|string> $attributes
      *
-     * @return WebDriverElement|MockInterface
+     * @return MockInterface|WebDriverElement
      */
     public static function create(string $tagName, array $attributes = []): WebDriverElement
     {
@@ -32,13 +31,15 @@ class ElementFactory
 
         $element
             ->shouldReceive('getTagName')
-            ->andReturn($tagName);
+            ->andReturn($tagName)
+        ;
 
         foreach ($attributes as $name => $value) {
             $element
                 ->shouldReceive('getAttribute')
                 ->with($name)
-                ->andReturn($value);
+                ->andReturn($value)
+            ;
         }
 
         return $element;

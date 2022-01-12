@@ -23,7 +23,7 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function createDataProvider(): array
     {
@@ -69,7 +69,7 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function isDataProvider(): array
     {
@@ -122,14 +122,15 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @return array[]
+     * @return array<mixed>
      */
     public function fromSelectElementDataProvider(): array
     {
         $emptySelectElement = ElementFactory::create('select');
         $emptySelectElement
             ->shouldReceive('findElements')
-            ->andReturn([]);
+            ->andReturn([])
+        ;
 
         $optionElements = [
             ElementFactory::create('option'),
@@ -140,7 +141,8 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
         $selectElement = ElementFactory::create('select');
         $selectElement
             ->shouldReceive('findElements')
-            ->andReturn($optionElements);
+            ->andReturn($optionElements)
+        ;
 
         return [
             'not a select element' => [
