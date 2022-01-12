@@ -22,13 +22,11 @@
         }
     },
     "scripts": {
-        "cs-ecs": "./vendor/bin/ecs check src tests --ansi --config ecs.php",
+        "cs-fixer-dry-run": "docker run --rm $(if [ ! -z \"${NO_TTY}\" ]; then echo \"\"; else echo \"-t\"; fi) -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --allow-risky=yes --dry-run --verbose --show-progress none",
+        "cs-fixer-fix": "docker run --rm $(if [ ! -z \"${NO_TTY}\" ]; then echo \"\"; else echo \"-t\"; fi) -w=/app -v ${PWD}:/app oskarstark/php-cs-fixer-ga:latest --allow-risky=yes --diff",
         "cs-phpcs": "./vendor/bin/phpcs",
-        "cs-fix": [
-            "./vendor/bin/ecs check src tests --ansi --config ecs.php --fix"
-        ],
         "cs": [
-            "@cs-ecs",
+            "@cs-fixer-dry-run",
             "@cs-phpcs"
         ],
         "static-analysis": "./vendor/bin/phpstan analyse --ansi",
@@ -49,7 +47,11 @@
         "phpstan/phpstan": "^0.12.77",
         "mockery/mockery": "^1.4",
         "phpstan/phpstan-mockery": "^0.12.12",
-        "phpstan/extension-installer": "^1.1",
-        "symplify/easy-coding-standard": "^9.1"
+        "phpstan/extension-installer": "^1.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     }
 }

@@ -129,7 +129,8 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
         $emptySelectElement = ElementFactory::create('select');
         $emptySelectElement
             ->shouldReceive('findElements')
-            ->andReturn([]);
+            ->andReturn([])
+        ;
 
         $optionElements = [
             ElementFactory::create('option'),
@@ -140,7 +141,8 @@ class SelectOptionCollectionTest extends \PHPUnit\Framework\TestCase
         $selectElement = ElementFactory::create('select');
         $selectElement
             ->shouldReceive('findElements')
-            ->andReturn($optionElements);
+            ->andReturn($optionElements)
+        ;
 
         return [
             'not a select element' => [
